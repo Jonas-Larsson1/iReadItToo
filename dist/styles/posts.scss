@@ -11,3 +11,13 @@
 .post h3 {
     font-weight: 600;
 }
+
+.tags {
+    list-style: none;
+    display: flex;
+}
+
+.tags li {
+    font-style: italic;
+    margin-right: 1rem;
+}

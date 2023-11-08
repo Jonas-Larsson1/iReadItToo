@@ -1,3 +1,5 @@
+const allPosts = []
+
 const fetchPosts = async () => {
     try {
       const response = await fetch('https://dummyjson.com/posts');
@@ -15,30 +17,45 @@ const fetchPosts = async () => {
     }
 }
 
-const displayPosts = (postsObjectsArray) => {
+const displayPosts = (postsObjects) => {
     const postListElement = document.getElementById('posts-list')
     
-    for (let i = 0; i < postsObjectsArray.length; i++) {
-        const post = postsObjectsArray[i]
+    for (let i = 0; i < postsObjects.length; i++) {
+        const post = postsObjects[i]
+
 
         const postElement = document.createElement('li')
         postElement.classList.add('post')
         postElement.innerHTML = 
-        `
+
+            `
             <h3>${post.title}</h3>
             <p>${post.body}</p>
-        `
+            `
 
-        postListElement.appendChild(postElement)
+        const tagsElement = document.createElement('ul')
+        tagsElement.classList.add('tags') 
+        post.tags.forEach((tag) => {
+            const tagElement = document.createElement('li')
+            tagElement.innerText = `#${tag}`
+            tagsElement.append(tagElement)
+        })
+        
+        postElement.append(tagsElement) 
+        postListElement.append(postElement)
     }
 
-    // console.log(postsObjectsArray[3].title)
 }
 
 const fetchAndDisplayPosts = () => {
     fetchPosts()
     .then(responseObject => {
-        displayPosts(responseObject.posts)
+        responseObject.posts.forEach((post) => {
+            if (!allPosts.includes(post)) {
+                allPosts.push(post)
+            }
+        })
+        displayPosts(allPosts)
     })
     .catch(error => {
         console.error('Error in fetchAndDisplayPosts:', error)
