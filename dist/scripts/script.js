@@ -7,6 +7,7 @@ const fetchPosts = async () => {
       }
   
       const responseJSON = await response.json()
+      
       return responseJSON
   
     } catch (error) {
@@ -14,14 +15,30 @@ const fetchPosts = async () => {
     }
 }
 
-const displayPosts = (posts) => {
-    console.log(posts)
+const displayPosts = (postsObjectsArray) => {
+    const postListElement = document.getElementById('posts-list')
+    
+    for (let i = 0; i < postsObjectsArray.length; i++) {
+        const post = postsObjectsArray[i]
+
+        const postElement = document.createElement('li')
+        postElement.classList.add('post')
+        postElement.innerHTML = 
+        `
+            <h3>${post.title}</h3>
+            <p>${post.body}</p>
+        `
+
+        postListElement.appendChild(postElement)
+    }
+
+    // console.log(postsObjectsArray[3].title)
 }
 
 const fetchAndDisplayPosts = () => {
     fetchPosts()
-    .then(posts => {
-        displayPosts(posts)
+    .then(responseObject => {
+        displayPosts(responseObject.posts)
     })
     .catch(error => {
         console.error('Error in fetchAndDisplayPosts:', error)
