@@ -1,4 +1,28 @@
-const allPosts = []
+
+setPostsLocally = (postsObjects) => {
+    postsObjects.forEach(post => {
+        localStorage.setItem(`post.id.${post.id}`, JSON.stringify(post))
+    })
+}
+
+getPostsLocally = (postID) => {
+    if (postID) {
+        return localStorage.getItem(`post.id.${postID}`)
+    } else {
+        const allKeys = Object.keys(localStorage)
+        const allPostKeys = []
+        const allPostObjects = []
+        allKeys.forEach(key => {
+            if (key.includes(`post.id.`)) {
+                allPostKeys.push(key)
+            }
+        })
+        allPostKeys.forEach(postKey => {
+            allPostObjects.push(JSON.parse(localStorage.getItem(postKey)))
+        })
+        return allPostObjects
+    }
+}
 
 const fetchPosts = async () => {
     try {
@@ -48,14 +72,17 @@ const displayPosts = (postsObjects) => {
 }
 
 const fetchAndDisplayPosts = () => {
+    const newPosts = []
     fetchPosts()
     .then(responseObject => {
         responseObject.posts.forEach((post) => {
-            if (!allPosts.includes(post)) {
-                allPosts.push(post)
+            if (!localStorage.getItem(`post.id.${post.id}`)) {
+                newPosts.push(post)
             }
         })
-        displayPosts(allPosts)
+        setPostsLocally(newPosts)
+
+        displayPosts(getPostsLocally())
     })
     .catch(error => {
         console.error('Error in fetchAndDisplayPosts:', error)
