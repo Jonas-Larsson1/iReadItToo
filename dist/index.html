@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <script src="https://kit.fontawesome.com/881a772b78.js" crossorigin="anonymous"></script>
+
     <link rel="stylesheet" href="./styles/styles.css">
     <link rel="stylesheet" href="./styles/posts.css">
 
@@ -17,19 +19,21 @@
         <ul id="posts-list">
         </ul>
 
-        <div id="post-bubble">
-            <span>&#9998;</span>
+        <div class="post-bubble fa-solid fa-pencil">
         </div>
 
         <form id="new-post" class="hidden draggable">
             <!-- <p id="new-post-drag" class="draggable">click to drag</p> -->
             <h2>New Post</h2>
+
+            <div class="cross-bubble fa-solid fa-xmark">
+            </div>
     
             <label for="title">Title:</label>
             <input type="text" id="title" name="title" required>
     
             <label for="body">Body:</label>
-            <input type="text" id="body" name="body" required></input>
+            <textarea  id="body" name="body" required></textarea>
     
             <label for="tags">Tags (comma-separated):</label>
             <input type="text" id="tags" name="tags">
