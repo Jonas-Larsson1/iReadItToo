@@ -12,18 +12,32 @@
 </head>
 
 <body>
-    <h1>iReadIt</h1>
     <main>
+        <h1>iReadIt</h1>
         <ul id="posts-list">
         </ul>
 
-         <form id="new-post">
-            <label for="title">Post title</label>
-            <input type="text" id="title" name="postTitle">
+        <div id="post-bubble">
+            <span>&#9998;</span>
+        </div>
 
-            <button>Submit post</button>
-         </form>
+        <form id="new-post" class="hidden draggable">
+            <!-- <p id="new-post-drag" class="draggable">click to drag</p> -->
+            <h2>New Post</h2>
+    
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" required>
+    
+            <label for="body">Body:</label>
+            <input type="text" id="body" name="body" required></input>
+    
+            <label for="tags">Tags (comma-separated):</label>
+            <input type="text" id="tags" name="tags">
+    
+            <button type="button" onclick="submitForm()">Submit</button>
+        </form>
+    </form>
     </main>
 </body>
-<script src="./scripts/script.js"></script>
+<script type="module" src="./scripts/script.js"></script>
 </html>

@@ -1,28 +1,14 @@
+import { initDraggable } from './dragging.js';
 
-// setPostsLocally = (postsObjects) => {
-//     postsObjects.forEach(post => {
-//         localStorage.setItem(`post.id.${post.id}`, JSON.stringify(post))
-//     })
-// }
+initDraggable('new-post')
 
-// getPostsLocally = (postID) => {
-//     if (postID) {
-//         return localStorage.getItem(`post.id.${postID}`)
-//     } else {
-//         const allKeys = Object.keys(localStorage)
-//         const allPostKeys = []
-//         const allPostObjects = []
-//         allKeys.forEach(key => {
-//             if (key.includes(`post.id.`)) {
-//                 allPostKeys.push(key)
-//             }
-//         })
-//         allPostKeys.forEach(postKey => {
-//             allPostObjects.push(JSON.parse(localStorage.getItem(postKey)))
-//         })
-//         return allPostObjects
-//     }
-// }
+const toggleHidden = (elementID) => {
+    const element = document.getElementById(`${elementID}`)
+    element.classList.toggle('hidden')
+}
+
+const postBubble = document.getElementById('post-bubble')
+postBubble.addEventListener('click', () => toggleHidden('new-post'))
 
 const setPostsLocally = (postObjects) => {
     const existingPosts = JSON.parse(localStorage.getItem('DummyJSONPosts') || '[]')
@@ -45,8 +31,6 @@ const getPostsLocally = (postID) => {
     }
 }
 
-
-
 const fetchPosts = async () => {
     try {
       const response = await fetch('https://dummyjson.com/posts');
@@ -66,7 +50,7 @@ const fetchPosts = async () => {
 
 const displayPosts = (postObjects) => {
     const postListElement = document.getElementById('posts-list')
-    console.log(postObjects)
+
     for (let i = 0; i < postObjects.length; i++) {
         const post = postObjects[i]
 
@@ -99,7 +83,7 @@ const fetchAndDisplayPosts = () => {
     .then(responseObject => {
         setPostsLocally(responseObject.posts)
 
-        displayPosts(getPostsLocally(4))
+        displayPosts(getPostsLocally())
     })
     .catch(error => {
         console.error('Error in fetchAndDisplayPosts:', error)

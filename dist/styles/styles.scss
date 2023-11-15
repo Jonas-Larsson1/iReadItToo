@@ -7,3 +7,24 @@ $primary-color: red;
     font-weight: 400;
 }
 
+main {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+}
+
+.hidden {
+    display: none;
+}
+
+.draggable {
+    cursor: grab;
+}
+
+.dragging {
+    cursor: grabbing;
+
+    background-color: red;
+    bottom: initial;
+    right: initial;
+}
