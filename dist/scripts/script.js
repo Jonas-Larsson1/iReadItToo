@@ -1,28 +1,51 @@
 
-setPostsLocally = (postsObjects) => {
-    postsObjects.forEach(post => {
-        localStorage.setItem(`post.id.${post.id}`, JSON.stringify(post))
+// setPostsLocally = (postsObjects) => {
+//     postsObjects.forEach(post => {
+//         localStorage.setItem(`post.id.${post.id}`, JSON.stringify(post))
+//     })
+// }
+
+// getPostsLocally = (postID) => {
+//     if (postID) {
+//         return localStorage.getItem(`post.id.${postID}`)
+//     } else {
+//         const allKeys = Object.keys(localStorage)
+//         const allPostKeys = []
+//         const allPostObjects = []
+//         allKeys.forEach(key => {
+//             if (key.includes(`post.id.`)) {
+//                 allPostKeys.push(key)
+//             }
+//         })
+//         allPostKeys.forEach(postKey => {
+//             allPostObjects.push(JSON.parse(localStorage.getItem(postKey)))
+//         })
+//         return allPostObjects
+//     }
+// }
+
+const setPostsLocally = (postObjects) => {
+    const existingPosts = JSON.parse(localStorage.getItem('DummyJSONPosts') || '[]')
+
+    const newPosts = postObjects.filter((newPost) => {
+        return !existingPosts.some((existingPost) => existingPost.id === newPost.id)
     })
+
+    const updatedPosts = [...existingPosts, ...newPosts]
+
+    localStorage.setItem('DummyJSONPosts', JSON.stringify(updatedPosts))
 }
 
-getPostsLocally = (postID) => {
+const getPostsLocally = (postID) => {
+    const allPosts = JSON.parse(localStorage.getItem('DummyJSONPosts'))
     if (postID) {
-        return localStorage.getItem(`post.id.${postID}`)
+        return [allPosts.find((post) => post.id === postID)] || null
     } else {
-        const allKeys = Object.keys(localStorage)
-        const allPostKeys = []
-        const allPostObjects = []
-        allKeys.forEach(key => {
-            if (key.includes(`post.id.`)) {
-                allPostKeys.push(key)
-            }
-        })
-        allPostKeys.forEach(postKey => {
-            allPostObjects.push(JSON.parse(localStorage.getItem(postKey)))
-        })
-        return allPostObjects
+        return allPosts
     }
 }
+
+
 
 const fetchPosts = async () => {
     try {
@@ -41,11 +64,11 @@ const fetchPosts = async () => {
     }
 }
 
-const displayPosts = (postsObjects) => {
+const displayPosts = (postObjects) => {
     const postListElement = document.getElementById('posts-list')
-    
-    for (let i = 0; i < postsObjects.length; i++) {
-        const post = postsObjects[i]
+    console.log(postObjects)
+    for (let i = 0; i < postObjects.length; i++) {
+        const post = postObjects[i]
 
 
         const postElement = document.createElement('li')
@@ -72,17 +95,11 @@ const displayPosts = (postsObjects) => {
 }
 
 const fetchAndDisplayPosts = () => {
-    const newPosts = []
     fetchPosts()
     .then(responseObject => {
-        responseObject.posts.forEach((post) => {
-            if (!localStorage.getItem(`post.id.${post.id}`)) {
-                newPosts.push(post)
-            }
-        })
-        setPostsLocally(newPosts)
+        setPostsLocally(responseObject.posts)
 
-        displayPosts(getPostsLocally())
+        displayPosts(getPostsLocally(4))
     })
     .catch(error => {
         console.error('Error in fetchAndDisplayPosts:', error)
