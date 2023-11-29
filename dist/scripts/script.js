@@ -3,6 +3,7 @@ import { initDraggable } from './dragging.js';
 const postBubble = document.querySelector('.post-bubble')
 const crossBubble = document.querySelector('.cross-bubble')
 const newPostContainer = document.querySelector('#new-post-container')
+const newPostForm = document.querySelector('#new-post-form')
 
 initDraggable(newPostContainer.id)
 
@@ -13,9 +14,16 @@ const toggleHidden = (elementID) => {
 
 postBubble.addEventListener('click', () => {
     toggleHidden(newPostContainer.id)
+    postBubble.classList.toggle('fa-pencil')
+    postBubble.classList.toggle('fa-xmark')
 })
 crossBubble.addEventListener('click', () => {
     toggleHidden(newPostContainer.id)
+})
+
+newPostForm.addEventListener('submit', event => {
+    event.preventDefault()
+    console.log(event)
 })
 
 const setPostsLocally = (postObjects) => {
