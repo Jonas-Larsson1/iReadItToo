@@ -45,39 +45,41 @@
 // }
 
 export function initDraggable(elementID) {
-    element = document.getElementById(elementID)
+    element = document.getElementById(elementID);
 
-    element.addEventListener('mousedown', handleMouseDown)
-    document.addEventListener('mouseup', handleMouseUp)
-    document.addEventListener('mousemove', handleMouseMove)
+    element.addEventListener('mousedown', handleMouseDown);
+    document.documentElement.addEventListener('mouseup', handleMouseUp);
+    document.documentElement.addEventListener('mousemove', handleMouseMove);
 }
 
-let offsetX, offsetY, element, isDragging = false
+let offsetX, offsetY, element, isDragging = false;
 
 const handleMouseDown = (event) => {
-    // event.preventDefault()
-    // const element = event.target
-    isDragging = true
-    offsetX = event.clientX - element.getBoundingClientRect().left
-    offsetY = event.clientY - element.getBoundingClientRect().top
-    element.classList.add('dragging')
-}
+    isDragging = true;
+    offsetX = event.clientX - element.getBoundingClientRect().left;
+    offsetY = event.clientY - element.getBoundingClientRect().top;
+    element.classList.add('dragging');
+};
 
 const handleMouseUp = () => {
-    isDragging = false
-    // const element = document.querySelector('.dragging')
+    isDragging = false;
     if (element) {
-        element.classList.remove('dragging')
+        element.classList.remove('dragging');
     }
-}
+};
 
 const handleMouseMove = (event) => {
     if (isDragging) {
-        event.preventDefault()
-        // const element = document.querySelector('.dragging')
+        event.preventDefault();
         if (element) {
-            element.style.left = event.clientX - offsetX + 'px';
-            element.style.top = event.clientY - offsetY + 'px';
+            const newX = event.clientX - offsetX;
+            const newY = event.clientY - offsetY;
+
+            const maxX = window.innerWidth - element.offsetWidth;
+            const maxY = window.innerHeight - element.offsetHeight;
+
+            element.style.left = Math.min(Math.max(0, newX), maxX) + 'px';
+            element.style.top = Math.min(Math.max(0, newY), maxY) + 'px';
         }
     }
-}
+};

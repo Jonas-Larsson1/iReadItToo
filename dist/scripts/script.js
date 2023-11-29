@@ -1,21 +1,21 @@
 import { initDraggable } from './dragging.js';
 
-initDraggable('new-post')
-
 const postBubble = document.querySelector('.post-bubble')
 const crossBubble = document.querySelector('.cross-bubble')
+const newPostContainer = document.querySelector('#new-post-container')
+
+initDraggable(newPostContainer.id)
 
 const toggleHidden = (elementID) => {
     const element = document.getElementById(`${elementID}`)
     element.classList.toggle('hidden')
-    postBubble.classList.toggle('hidden')
 }
 
 postBubble.addEventListener('click', () => {
-    toggleHidden('new-post')
+    toggleHidden(newPostContainer.id)
 })
 crossBubble.addEventListener('click', () => {
-    toggleHidden('new-post')
+    toggleHidden(newPostContainer.id)
 })
 
 const setPostsLocally = (postObjects) => {

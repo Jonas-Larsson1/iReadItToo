@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="./styles/styles.css">
     <link rel="stylesheet" href="./styles/posts.css">
 
-    <title>iReadIt: the last page of the internet</title>
+    <title>iReadItToo: the last page of the internet</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,14 +15,16 @@
 
 <body>
     <main>
-        <h1>iReadIt</h1>
+        <h1>iReadItToo</h1>
+
         <ul id="posts-list">
         </ul>
 
         <div class="post-bubble fa-solid fa-pencil">
         </div>
 
-        <form id="new-post" class="hidden draggable">
+        <div id="new-post-container" class="hidden draggable">
+        <form id="new-post">
             <!-- <p id="new-post-drag" class="draggable">click to drag</p> -->
             <h2>New Post</h2>
 
@@ -40,7 +42,7 @@
     
             <button type="button" onclick="submitForm()">Submit</button>
         </form>
-    </form>
+    </div>
     </main>
 </body>
 <script type="module" src="./scripts/script.js"></script>
