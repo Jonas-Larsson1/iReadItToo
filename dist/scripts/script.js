@@ -1,5 +1,5 @@
 import { initDraggable } from './dragging.js';
-import { setPostsLocally, fetchAndDisplayPosts } from './posts.js'
+import { setPostsLocally, getPostsLocally, fetchAndDisplayPosts } from './posts.js'
 
 const postBubble = document.querySelector('.post-bubble')
 const crossBubble = document.querySelector('.cross-bubble')
@@ -34,9 +34,13 @@ newPostForm.addEventListener('submit', event => {
         {
             title: postTitleElement.value,
             body: postBodyElement.value,
-            tags: postTagsElement.value.split(" ")
+            tags: postTagsElement.value.split(" "),
+            reactions: 0, 
+
         } 
     
+
+
 
     if (newPostObject.title && newPostObject.body) {
         setPostsLocally([newPostObject])
