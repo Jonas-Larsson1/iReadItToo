@@ -7,8 +7,20 @@
 
 main {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   padding: 1rem;
+}
+
+aside {
+  justify-self: end;
+  color: red;
+  min-width: 22rem;
+  padding-top: 3rem;
+}
+
+#title-text {
+  padding-left: 1rem;
+  padding-top: 1rem;
 }
 
 .hidden {

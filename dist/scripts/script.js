@@ -1,10 +1,11 @@
 import { initDraggable } from './dragging.js';
-import { setPostsLocally, getPostsLocally, fetchAndDisplayPosts } from './posts.js'
+import { setPostsLocally, generatePostID, fetchAndDisplayPosts } from './posts.js'
 
 const postBubble = document.querySelector('.post-bubble')
-const crossBubble = document.querySelector('.cross-bubble')
+// const crossBubble = document.querySelector('.cross-bubble')
 const newPostContainer = document.querySelector('#new-post-container')
 const newPostForm = document.querySelector('#new-post-form')
+const asideElement = document.querySelector('#aside')
 
 initDraggable(newPostContainer.id)
 
@@ -15,13 +16,14 @@ const toggleHidden = (elementID) => {
 
 postBubble.addEventListener('click', () => {
     toggleHidden(newPostContainer.id)
+    toggleHidden(asideElement.id)
     postBubble.classList.toggle('fa-pencil')
     postBubble.classList.toggle('fa-xmark')
 })
 
-crossBubble.addEventListener('click', () => {
-    toggleHidden(newPostContainer.id)
-})
+// crossBubble.addEventListener('click', () => {
+//     toggleHidden(newPostContainer.id)
+// })
 
 newPostForm.addEventListener('submit', event => {
     event.preventDefault()
@@ -35,12 +37,9 @@ newPostForm.addEventListener('submit', event => {
             title: postTitleElement.value,
             body: postBodyElement.value,
             tags: postTagsElement.value.split(" "),
-            reactions: 0, 
-
+            reactions: 0,
+            id: generatePostID()
         } 
-    
-
-
 
     if (newPostObject.title && newPostObject.body) {
         setPostsLocally([newPostObject])

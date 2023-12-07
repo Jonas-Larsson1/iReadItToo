@@ -40,7 +40,11 @@ export const fetchPosts = async () => {
 export const displayPosts = (postObjects) => {
     const postListElement = document.getElementById('posts-list')
 
+    postListElement.innerHTML = ''
+
     postObjects.sort((a,b) => b.id - a.id)
+
+    console.log(postObjects)
 
     for (let i = 0; i < postObjects.length; i++) {
         const post = postObjects[i]
@@ -50,8 +54,8 @@ export const displayPosts = (postObjects) => {
         postElement.innerHTML = 
 
             `
-            <p>${post.id}</p>
             <h3>${post.title}</h3>
+            <u>Post ID: ${post.id}</u>
             <p>${post.body}</p>
             `
 
@@ -66,8 +70,9 @@ export const displayPosts = (postObjects) => {
         postElement.append(tagsElement) 
         postListElement.append(postElement)
     }
-
 }
+
+
 
 export const fetchAndDisplayPosts = () => {
     fetchPosts()
@@ -75,7 +80,6 @@ export const fetchAndDisplayPosts = () => {
         setPostsLocally(responseObject.posts)
 
         displayPosts(getPostsLocally())
-
     })
     .catch(error => {
         console.error('Error in fetchAndDisplayPosts:', error)
@@ -84,8 +88,6 @@ export const fetchAndDisplayPosts = () => {
 
 export const generatePostID = () => {
     const existingPosts = getPostsLocally()
-
-    console.log(existingPosts)
 
     let highestPostID = 0
 
