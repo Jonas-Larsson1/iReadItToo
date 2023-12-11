@@ -1,14 +1,22 @@
-export const setPostsLocally = (postObjects) => {
+export const setPostsLocally = (postObjects, updatedPost) => {
+    let newPosts
 
     const existingPosts = JSON.parse(localStorage.getItem('DummyJSONPosts') || '[]')
 
-    const newPosts = postObjects.filter((newPost) => {
-        return !existingPosts.some((existingPost) => existingPost.id === newPost.id)
-    })
+    if (!updatedPost) {
+        newPosts = postObjects.filter((newPost) => {
+            return !existingPosts.some((existingPost) => existingPost.id === newPost.id)
+        })
+  
+    } else {
+        const indexToUpdate = existingPosts.findIndex((post) => post.id === updatedPost.id)
+        const postToUpdate = existingPosts[indexToUpdate]
+        postToUpdate.reactions = updatedPost.reactions
+        newPosts = [postToUpdate]
+    }
 
-    const updatedPosts = [...existingPosts, ...newPosts]
-
-    localStorage.setItem('DummyJSONPosts', JSON.stringify(updatedPosts))
+    const allPosts = [...existingPosts, ...newPosts]
+    localStorage.setItem('DummyJSONPosts', JSON.stringify(allPosts))
 }
 
 export const getPostsLocally = (postID) => {
@@ -30,6 +38,11 @@ export const fetchPosts = async () => {
   
       const responseJSON = await response.json()
       
+      //Vi låtsas att alla posts redan har lite reactions
+      responseJSON.posts.map(post => {
+        post.reactions = Math.floor(Math.random() * 101)
+      })
+
       return responseJSON
   
     } catch (error) {
@@ -63,20 +76,46 @@ export const displayPosts = (postObjects) => {
 
         const tagsElement = document.createElement('ul')
         tagsElement.classList.add('tags')
-        post.tags.forEach((tag) => {
-            const tagElement = document.createElement('li')
-            tagElement.innerText = `#${tag}`
-            tagsElement.append(tagElement)
-        })
+
+        if (post.tags) {
+            post.tags.forEach((tag) => {
+                const tagElement = document.createElement('li')
+                tagElement.innerText = `#${tag}`
+                tagsElement.append(tagElement)
+            })
+        }
 
         const reactionsElement = document.createElement('div')
         reactionsElement.classList.add('reactions-container')
-        reactionsElement.innerHTML = 
-        `
-            <button class="upvote-button"><i class="fa-solid fa-thumbs-up"></i></button>
-            <p class="reactions">${post.reactions}</p>
-            <button class="downvote-button"><i class="fa-solid fa-thumbs-down"></i></button>
-        `
+
+        const upVoteButton = document.createElement('button')
+        upVoteButton.classList.add('upvote-button', 'fa-solid', 'fa-thumbs-up')
+
+        const downVoteButton = document.createElement('button')
+        downVoteButton.classList.add('downvote-button', 'fa-solid', 'fa-thumbs-down')
+
+        const reactions = document.createElement('p')
+        reactions.innerHTML = `${post.reactions}`
+        reactions.classList.add('reactions')
+
+        upVoteButton.addEventListener('click', () => {
+            updatePost(post, 'upvote', fetchAndDisplayPosts())
+        })
+
+        downVoteButton.addEventListener('click', () => {
+            updatePost(post, 'downvote', fetchAndDisplayPosts())
+        })
+
+        // reactionsElement.innerHTML = 
+        // `
+        //     <button class="upvote-button fa-solid fa-thumbs-up"></button>
+        //     <p class="reactions">${post.reactions}</p>
+        //     <button class="downvote-button"><i class="fa-solid fa-thumbs-down"></i></button>
+        // `
+
+        reactionsElement.appendChild(upVoteButton)
+        reactionsElement.appendChild(reactions)
+        reactionsElement.appendChild(downVoteButton)
 
         postContentElement.appendChild(tagsElement)
         postElement.appendChild(postContentElement)
@@ -84,8 +123,6 @@ export const displayPosts = (postObjects) => {
         postListElement.append(postElement)
     }
 }
-
-
 
 export const fetchAndDisplayPosts = () => {
     fetchPosts()
@@ -111,4 +148,20 @@ export const generatePostID = () => {
     }
 
     return (highestPostID + 1)
+}
+
+const updatePost = (post, action, callback) => {
+    console.log(post)
+    const postToUpdate = getPostsLocally(post.id)[0]
+    console.log(postToUpdate)
+    if (action === 'upvote') {
+        postToUpdate.reactions++
+    } else if (action === 'downvote') {
+        postToUpdate.reactions--
+    }
+    console.log(postToUpdate)
+
+    setPostsLocally([], postToUpdate)
+
+    callback
 }
