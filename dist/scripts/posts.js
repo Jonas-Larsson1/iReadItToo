@@ -1,22 +1,22 @@
 export const setPostsLocally = (postObjects, updatedPost) => {
-    let newPosts
-
     const existingPosts = JSON.parse(localStorage.getItem('DummyJSONPosts') || '[]')
 
     if (!updatedPost) {
-        newPosts = postObjects.filter((newPost) => {
-            return !existingPosts.some((existingPost) => existingPost.id === newPost.id)
-        })
-  
+        const newPosts = postObjects.filter((newPost) =>
+            !existingPosts.some((existingPost) => existingPost.id === newPost.id)
+        )
+
+        const allPosts = [...existingPosts, ...newPosts]
+        localStorage.setItem('DummyJSONPosts', JSON.stringify(allPosts))
+
     } else {
         const indexToUpdate = existingPosts.findIndex((post) => post.id === updatedPost.id)
-        const postToUpdate = existingPosts[indexToUpdate]
-        postToUpdate.reactions = updatedPost.reactions
-        newPosts = [postToUpdate]
-    }
 
-    const allPosts = [...existingPosts, ...newPosts]
-    localStorage.setItem('DummyJSONPosts', JSON.stringify(allPosts))
+        if (indexToUpdate !== -1) {
+            existingPosts[indexToUpdate].reactions = updatedPost.reactions
+            localStorage.setItem('DummyJSONPosts', JSON.stringify(existingPosts))
+        }
+    }
 }
 
 export const getPostsLocally = (postID) => {
@@ -151,15 +151,13 @@ export const generatePostID = () => {
 }
 
 const updatePost = (post, action, callback) => {
-    console.log(post)
     const postToUpdate = getPostsLocally(post.id)[0]
-    console.log(postToUpdate)
+
     if (action === 'upvote') {
         postToUpdate.reactions++
     } else if (action === 'downvote') {
         postToUpdate.reactions--
     }
-    console.log(postToUpdate)
 
     setPostsLocally([], postToUpdate)
 
