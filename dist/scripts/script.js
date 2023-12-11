@@ -1,31 +1,58 @@
-const fetchPosts = async () => {
-    try {
-      const response = await fetch('https://dummyjson.com/posts');
-  
-      if (!response.ok) {
-        throw new Error(`Request failed with status: ${response.status}`)
-      }
-  
-      const responseJSON = await response.json()
-      return responseJSON
-  
-    } catch (error) {
-      console.error('Error in fetchPosts():', error);
-    }
+import { initDraggable } from './dragging.js';
+import { setPostsLocally, generatePostID, fetchAndDisplayPosts } from './posts.js'
+
+const postBubble = document.querySelector('#post-bubble')
+const crossBubble = document.querySelector('#cross-bubble')
+const newPostContainer = document.querySelector('#new-post-container')
+const newPostForm = document.querySelector('#new-post-form')
+const asideElement = document.querySelector('#aside')
+
+initDraggable(newPostContainer.id)
+
+const toggleHidden = (elementID) => {
+    const element = document.getElementById(`${elementID}`)
+    element.classList.toggle('hidden')
 }
 
-const displayPosts = (posts) => {
-    console.log(posts)
-}
+postBubble.addEventListener('click', () => {
+    toggleHidden(newPostContainer.id)
+    toggleHidden(postBubble.id)
+    toggleHidden(asideElement.id)
+    // postBubble.classList.toggle('fa-pencil')
+    // postBubble.classList.toggle('fa-xmark')
+})
 
-const fetchAndDisplayPosts = () => {
-    fetchPosts()
-    .then(posts => {
-        displayPosts(posts)
-    })
-    .catch(error => {
-        console.error('Error in fetchAndDisplayPosts:', error)
-    })
-}
+crossBubble.addEventListener('click', () => {
+    toggleHidden(newPostContainer.id)
+    toggleHidden(postBubble.id)
+    toggleHidden(asideElement.id)
+})
+
+newPostForm.addEventListener('submit', event => {
+    event.preventDefault()
+
+    let postTitleElement = document.getElementById('newTitle')
+    let postBodyElement = document.getElementById('newBody')
+    let postTagsElement = document.getElementById('newTags')
+
+    let newPostObject = 
+        {
+            title: postTitleElement.value,
+            body: postBodyElement.value,
+            tags: postTagsElement.value.split(" "),
+            reactions: 0,
+            id: generatePostID()
+        } 
+
+    if (newPostObject.title && newPostObject.body) {
+        setPostsLocally([newPostObject])
+        fetchAndDisplayPosts()
+    } 
+
+    postTitleElement.value = ''
+    postBodyElement.value = ''
+    postTagsElement.value = ''
+})
+
 
 fetchAndDisplayPosts()

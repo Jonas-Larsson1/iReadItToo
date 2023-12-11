@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <script src="https://kit.fontawesome.com/881a772b78.js" crossorigin="anonymous"></script>
+
     <link rel="stylesheet" href="./styles/styles.css">
-    <title>iReadIt</title>
+    <link rel="stylesheet" href="./styles/posts.css">
+
+    <title>iReadItToo: the last page of the internet</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -10,7 +14,42 @@
 </head>
 
 <body>
-    <h1>hej</h1>
+    <h1 id="title-text">iReadItToo</h1>
+    <main>
+        <!-- <form id="new-post-form" class="post">        
+            <input type="text" id="newTitle" name="title" required>
+            <input type="textarea" id="newBody" name="body" required>               
+            <input type="text" id="newTags" name="tags">              
+            <button type="submit">Submit</button>
+        </form> -->
+
+        <ul id="posts-list">
+        </ul>
+
+        <div id="post-bubble" class="post-bubble fa-solid fa-pencil">
+        </div>
+        <aside id="aside" class="hidden">
+            <div id="new-post-container" class="hidden draggable">
+                <form id="new-post-form">
+                    <h2>New Post</h2>
+                    
+                    <div id="cross-bubble" class="cross-bubble fa-solid fa-xmark">
+                    </div>
+                    
+                <label for="title">Title:</label>
+                <input type="text" id="newTitle" name="title" required>
+        
+                <label for="body">Body:</label>
+                <textarea  id="newBody" name="body" required></textarea>
+                
+                <label for="tags">Tags (space-separated):</label>
+                <input type="text" id="newTags" name="tags">
+                
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </aside>
+    </main>
 </body>
-<script src="./scripts/script.js"></script>
+<script type="module" src="./scripts/script.js"></script>
 </html>

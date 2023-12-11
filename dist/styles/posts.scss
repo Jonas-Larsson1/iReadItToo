@@ -1,0 +1,167 @@
+$primary-color: #56af4c;
+$secondary-color: #4c6faf;
+$bad-color: #af4c4c;
+
+#posts-list {
+    list-style: none;
+    margin-right: 5rem;
+}
+
+.post h3 {
+    font-weight: 600;
+}
+
+.tags {
+    list-style: none;
+    display: flex;
+    margin-top: auto;
+}
+
+.tags li {
+    color: #7a7a7a;
+    font-style: italic;
+    margin-right: 1rem;
+}
+
+.post-container {
+    display: flex;
+    justify-content: space-between;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 1rem 0rem 1rem 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.1);
+    margin: 1rem 0rem;
+}
+
+.post {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    h3 {
+      font-size: 1.5rem;
+      color: #333;
+    }
+  
+    p {
+      margin-top: 0.75rem;
+      margin-bottom: 2rem;
+    }
+
+    u {
+      font-size: 0.5rem;
+      color: #ccc;
+      margin-bottom: auto;
+    }
+
+  }
+
+  h1 {
+  font-size: 2rem;
+  // margin: 1rem;
+  color: #333;
+}
+
+.reactions-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 1rem;
+
+  button {
+    padding: 1rem;
+  }
+}
+
+.reactions {
+  text-align: center;
+  margin: 0.5rem;
+  font-weight: bold;
+}
+
+.upvote-button {
+  background-color: $secondary-color;
+}
+
+.downvote-button {
+  background-color: $bad-color;
+}
+
+#new-post-container {
+  position: fixed;
+  // right: 2rem;
+  // bottom: 2rem;
+  margin: 1rem;
+}
+
+form#new-post-form {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.1);
+}
+
+form#new-post-form h2 {
+  font-size: 1.5rem;
+  text-align: center;
+  color: #333;
+}
+
+form#new-post-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #555;
+}
+
+form#new-post-form input,
+form#new-post-form textarea {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+}
+
+form#new-post-form button {
+  background-color: $primary-color;
+}
+  
+.post-bubble {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    background-color: $primary-color;
+    color: #fff;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.5rem;
+    box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.3);
+    z-index: 9;
+}
+
+.cross-bubble {
+    position: absolute;
+    bottom: -1.5rem;
+    right: -1.5rem;
+    background-color: $bad-color;
+    color: #fff;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.5rem;
+    // box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 9;
+}
+  
