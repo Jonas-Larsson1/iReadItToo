@@ -32,8 +32,11 @@ button:hover {
 }
 
 #title-text {
-  padding-left: 1rem;
-  padding-top: 1rem;
+  padding-left: 1.2rem;
+  padding-top: 1.2rem;
+}
+#title-text i {
+  font-size: 1.5em;
 }
 
 .hidden {

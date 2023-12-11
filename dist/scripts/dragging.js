@@ -79,7 +79,6 @@ const handleMouseMove = (event) => {
             const maxY = window.innerHeight - element.offsetHeight
             
             if (initialTop && initialLeft) {
-                console.log(element.style.left, initialLeft)
                 
                 const newLeft = Math.min(Math.max(0, newX), initialLeft) 
                 const newTop = Math.min(Math.max(0, newY), initialTop)
