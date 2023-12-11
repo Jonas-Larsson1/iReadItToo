@@ -14,6 +14,7 @@ $bad-color: #af4c4c;
 .tags {
     list-style: none;
     display: flex;
+    margin-top: auto;
 }
 
 .tags li {
@@ -27,13 +28,16 @@ $bad-color: #af4c4c;
     justify-content: space-between;
     background-color: #fff;
     border: 1px solid #ccc;
-    padding: 1rem;
+    padding: 1rem 0rem 1rem 1rem;
     border-radius: 0.5rem;
     box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.1);
     margin: 1rem 0rem;
 }
 
 .post {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
     h3 {
       font-size: 1.5rem;
@@ -48,13 +52,14 @@ $bad-color: #af4c4c;
     u {
       font-size: 0.5rem;
       color: #ccc;
+      margin-bottom: auto;
     }
 
   }
 
   h1 {
   font-size: 2rem;
-  margin: 1rem;
+  // margin: 1rem;
   color: #333;
 }
 
@@ -72,6 +77,7 @@ $bad-color: #af4c4c;
 .reactions {
   text-align: center;
   margin: 0.5rem;
+  font-weight: bold;
 }
 
 .upvote-button {
