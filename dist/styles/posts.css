@@ -80,10 +80,14 @@ h1 {
 
 #new-post-container {
   position: fixed;
-  margin: 1rem;
+  right: 2rem;
+  bottom: 2rem;
 }
 
-form#new-post-form {
+#new-post-form {
+  display: flex;
+  flex-direction: column;
+  height: 90%;
   background-color: #fff;
   border: 1px solid #ccc;
   padding: 1rem;
@@ -91,20 +95,25 @@ form#new-post-form {
   box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.1);
 }
 
-form#new-post-form h2 {
+#new-post-form h2 {
   font-size: 1.5rem;
   text-align: center;
   color: #333;
 }
 
-form#new-post-form label {
+#new-post-form i {
+  margin-right: auto;
+}
+
+#new-post-form label {
   display: block;
   margin-bottom: 0.5rem;
   color: #555;
 }
 
-form#new-post-form input,
-form#new-post-form textarea {
+#new-post-form input,
+#new-post-form textarea {
+  font-size: 1rem;
   width: 100%;
   padding: 0.5rem;
   margin-bottom: 1rem;
@@ -113,15 +122,20 @@ form#new-post-form textarea {
   border-radius: 0.25rem;
 }
 
-form#new-post-form button {
+#new-post-form textarea {
+  resize: none;
+  flex: 1;
+}
+
+#new-post-form button {
   background-color: #56af4c;
+  max-width: 7.5rem;
 }
 
 .post-bubble {
   position: fixed;
   bottom: 1.5rem;
   right: 1.5rem;
-  background-color: #56af4c;
   color: #fff;
   width: 3rem;
   height: 3rem;
@@ -133,6 +147,14 @@ form#new-post-form button {
   font-size: 1.5rem;
   box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.3);
   z-index: 9;
+}
+
+.fa-pencil {
+  background-color: #56af4c;
+}
+
+.fa-xmark {
+  background-color: #af4c4c;
 }
 
 .cross-bubble {

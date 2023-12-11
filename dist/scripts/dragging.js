@@ -45,41 +45,53 @@
 // }
 
 export function initDraggable(elementID) {
-    element = document.getElementById(elementID);
+    element = document.getElementById(elementID)
 
-    element.addEventListener('mousedown', handleMouseDown);
-    document.documentElement.addEventListener('mouseup', handleMouseUp);
-    document.documentElement.addEventListener('mousemove', handleMouseMove);
+    element.addEventListener('mousedown', handleMouseDown)
+    document.documentElement.addEventListener('mouseup', handleMouseUp)
+    document.documentElement.addEventListener('mousemove', handleMouseMove)
 }
 
-let offsetX, offsetY, element, isDragging = false;
+let offsetX, offsetY, element, initialTop, initialLeft, isDragging = false
 
 const handleMouseDown = (event) => {
-    isDragging = true;
-    offsetX = event.clientX - element.getBoundingClientRect().left;
-    offsetY = event.clientY - element.getBoundingClientRect().top;
-    element.classList.add('dragging');
+    isDragging = true
+    offsetX = event.clientX - element.getBoundingClientRect().left
+    offsetY = event.clientY - element.getBoundingClientRect().top
+    element.classList.add('dragging')
 };
 
 const handleMouseUp = () => {
-    isDragging = false;
+    isDragging = false
     if (element) {
-        element.classList.remove('dragging');
+        element.classList.remove('dragging')
     }
 };
 
 const handleMouseMove = (event) => {
     if (isDragging) {
-        event.preventDefault();
+        event.preventDefault()
         if (element) {
-            const newX = event.clientX - offsetX;
-            const newY = event.clientY - offsetY;
+            const newX = event.clientX - offsetX
+            const newY = event.clientY - offsetY
+            
+            const maxX = window.innerWidth - element.offsetWidth
+            const maxY = window.innerHeight - element.offsetHeight
+            
+            if (initialTop && initialLeft) {
+                console.log(element.style.left, initialLeft)
+                
+                const newLeft = Math.min(Math.max(0, newX), initialLeft) 
+                const newTop = Math.min(Math.max(0, newY), initialTop)
 
-            const maxX = window.innerWidth - element.offsetWidth;
-            const maxY = window.innerHeight - element.offsetHeight;
+                element.style.left = newLeft + 'px'
+                element.style.top = newTop + 'px'
 
-            element.style.left = Math.min(Math.max(0, newX), maxX) + 'px';
-            element.style.top = Math.min(Math.max(0, newY), maxY) + 'px';
+            } else {
+                initialLeft = Math.min(Math.max(0, newX), maxX)
+                initialTop = Math.min(Math.max(0, newY), maxY)
+            }
         }
     }
-};
+}
+    

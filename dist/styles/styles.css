@@ -47,7 +47,4 @@ button:hover {
 
 .dragging {
   cursor: grabbing;
-  border: 2px dashed darkgray;
-  bottom: initial;
-  right: initial;
 }/*# sourceMappingURL=styles.css.map */

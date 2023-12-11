@@ -50,7 +50,7 @@ button {
 .dragging {
     cursor: grabbing;
 
-    border: 2px dashed darkgray;
-    bottom: initial;
-    right: initial;
+    // filter: contrast(50%);
+    // bottom: initial;
+    // right: initial;
 }
