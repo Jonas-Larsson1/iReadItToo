@@ -1,5 +1,6 @@
 #posts-list {
   list-style: none;
+  margin-right: 5rem;
 }
 
 .post h3 {
@@ -17,14 +18,17 @@
   margin-right: 1rem;
 }
 
-.post {
+.post-container {
+  display: flex;
+  justify-content: space-between;
   background-color: #fff;
   border: 1px solid #ccc;
   padding: 1rem;
   border-radius: 0.5rem;
   box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.1);
-  margin: 1rem;
+  margin: 1rem 0rem;
 }
+
 .post h3 {
   font-size: 1.5rem;
   color: #333;
@@ -44,8 +48,32 @@ h1 {
   color: #333;
 }
 
+.reactions-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 1rem;
+}
+.reactions-container button {
+  padding: 1rem;
+}
+
+.reactions {
+  text-align: center;
+  margin: 0.5rem;
+}
+
+.upvote-button {
+  background-color: #4c6faf;
+}
+
+.downvote-button {
+  background-color: #af4c4c;
+}
+
 #new-post-container {
   position: fixed;
+  margin: 1rem;
 }
 
 form#new-post-form {
@@ -54,7 +82,6 @@ form#new-post-form {
   padding: 1rem;
   border-radius: 0.5rem;
   box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.1);
-  margin: 1rem;
 }
 
 form#new-post-form h2 {
@@ -80,23 +107,14 @@ form#new-post-form textarea {
 }
 
 form#new-post-form button {
-  background-color: #4caf50;
-  color: #fff;
-  padding: 0.625rem 1rem;
-  border: none;
-  border-radius: 0.25rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-form#new-post-form button:hover {
-  background-color: #45a049;
+  background-color: #56af4c;
 }
 
 .post-bubble {
   position: fixed;
   bottom: 1.5rem;
   right: 1.5rem;
-  background-color: #4caf50;
+  background-color: #56af4c;
   color: #fff;
   width: 3rem;
   height: 3rem;
@@ -112,9 +130,9 @@ form#new-post-form button:hover {
 
 .cross-bubble {
   position: absolute;
-  top: -1.5rem;
+  bottom: -1.5rem;
   right: -1.5rem;
-  background-color: #4caf50;
+  background-color: #af4c4c;
   color: #fff;
   width: 3rem;
   height: 3rem;

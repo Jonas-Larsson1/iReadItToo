@@ -50,24 +50,37 @@ export const displayPosts = (postObjects) => {
         const post = postObjects[i]
 
         const postElement = document.createElement('li')
-        postElement.classList.add('post')
-        postElement.innerHTML = 
+        postElement.classList.add('post-container')
 
-            `
+        const postContentElement = document.createElement('div')
+        postContentElement.classList.add('post')
+        postContentElement.innerHTML = 
+        `
             <h3>${post.title}</h3>
             <u>Post ID: ${post.id}</u>
             <p>${post.body}</p>
-            `
+        `
 
         const tagsElement = document.createElement('ul')
-        tagsElement.classList.add('tags') 
+        tagsElement.classList.add('tags')
         post.tags.forEach((tag) => {
             const tagElement = document.createElement('li')
             tagElement.innerText = `#${tag}`
             tagsElement.append(tagElement)
         })
-        
-        postElement.append(tagsElement) 
+
+        const reactionsElement = document.createElement('div')
+        reactionsElement.classList.add('reactions-container')
+        reactionsElement.innerHTML = 
+        `
+            <button class="upvote-button"><i class="fa-solid fa-thumbs-up"></i></button>
+            <p class="reactions">${post.reactions}</p>
+            <button class="downvote-button"><i class="fa-solid fa-thumbs-down"></i></button>
+        `
+
+        postContentElement.appendChild(tagsElement)
+        postElement.appendChild(postContentElement)
+        postElement.appendChild(reactionsElement) 
         postListElement.append(postElement)
     }
 }

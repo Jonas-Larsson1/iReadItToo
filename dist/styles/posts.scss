@@ -1,5 +1,10 @@
+$primary-color: #56af4c;
+$secondary-color: #4c6faf;
+$bad-color: #af4c4c;
+
 #posts-list {
     list-style: none;
+    margin-right: 5rem;
 }
 
 .post h3 {
@@ -17,14 +22,19 @@
     margin-right: 1rem;
 }
 
-.post {
+.post-container {
+    display: flex;
+    justify-content: space-between;
     background-color: #fff;
     border: 1px solid #ccc;
     padding: 1rem;
     border-radius: 0.5rem;
     box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.1);
-    margin: 1rem;
-  
+    margin: 1rem 0rem;
+}
+
+.post {
+
     h3 {
       font-size: 1.5rem;
       color: #333;
@@ -48,10 +58,35 @@
   color: #333;
 }
 
+.reactions-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 1rem;
+
+  button {
+    padding: 1rem;
+  }
+}
+
+.reactions {
+  text-align: center;
+  margin: 0.5rem;
+}
+
+.upvote-button {
+  background-color: $secondary-color;
+}
+
+.downvote-button {
+  background-color: $bad-color;
+}
+
 #new-post-container {
   position: fixed;
   // right: 2rem;
   // bottom: 2rem;
+  margin: 1rem;
 }
 
 form#new-post-form {
@@ -60,7 +95,6 @@ form#new-post-form {
   padding: 1rem;
   border-radius: 0.5rem;
   box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.1);
-  margin: 1rem;
 }
 
 form#new-post-form h2 {
@@ -86,24 +120,14 @@ form#new-post-form textarea {
 }
 
 form#new-post-form button {
-  background-color: #4caf50;
-  color: #fff;
-  padding: 0.625rem 1rem;
-  border: none;
-  border-radius: 0.25rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: #45a049;
-  }
+  background-color: $primary-color;
 }
   
 .post-bubble {
     position: fixed;
     bottom: 1.5rem;
     right: 1.5rem;
-    background-color: #4caf50;
+    background-color: $primary-color;
     color: #fff;
     width: 3rem;
     height: 3rem;
@@ -119,9 +143,9 @@ form#new-post-form button {
 
 .cross-bubble {
     position: absolute;
-    top: -1.5rem;
+    bottom: -1.5rem;
     right: -1.5rem;
-    background-color: #4caf50;
+    background-color: $bad-color;
     color: #fff;
     width: 3rem;
     height: 3rem;
